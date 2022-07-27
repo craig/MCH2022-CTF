@@ -39,3 +39,9 @@ Rogue Wifi: https://github.com/craig/MCH2022-CTF/blob/main/rogue_wifi.txt
 Access Control 1: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol1.txt
 
 Access Control 2: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol2.txt
+
+Locked Locks 1: A lock in a white case, needs lockpicking.
+
+Locked Locks 2: A lock in a black case, needs lockpicking and is hard, due to a security pin.
+
+Lost Combination: A simple shimming challenge. https://en.wikipedia.org/wiki/Shim_(lock_pick)
