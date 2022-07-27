@@ -21,6 +21,8 @@ Coinflip: https://gist.github.com/betrisey/45882ce20c743c8e2fadff88899030e1
 
 Secure Router: https://github.com/craig/MCH2022-CTF/blob/main/secure_router.txt
 
+Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
+
 ## Network
 
 ## Misc
