@@ -15,6 +15,8 @@ Sharing is Caring: https://imp.ress.me/blog/2022-07-26/mch-2022-crypto/#sharing-
 
 Screensaver: https://github.com/craig/MCH2022-CTF/blob/main/screensaver.txt
 
+Encrypted USB: https://github.com/craig/MCH2022-CTF/blob/main/encrypted_usb.txt
+
 ## Web
 
 Coinflip: https://gist.github.com/betrisey/45882ce20c743c8e2fadff88899030e1
