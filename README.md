@@ -27,6 +27,7 @@ Encrypted USB: https://github.com/craig/MCH2022-CTF/blob/main/encrypted_usb.txt
 
 North Korean Needle: https://github.com/craig/MCH2022-CTF/blob/main/north_korean_needle.txt
 
+Extensions: https://www.youtube.com/watch?v=kHwdguVWJJE
 
 ## Web
 
@@ -41,6 +42,8 @@ Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
 Cat Lovers: simple LFI, curl https://catlovers.ctf.zone/image.php?file=../../../../etc/passwd | grep catlover | cut -d: -f5
 
 ## Network
+
+For starters: https://www.youtube.com/shorts/58NhToPKro8
 
 ## Misc
 
