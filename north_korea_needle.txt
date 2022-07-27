@@ -1,0 +1,3 @@
+Red Star OS Tampers with files, they have an ASCII EOF at their end.
+grep EOF *
+That file contains the flag, just view it.
