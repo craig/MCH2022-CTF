@@ -1,0 +1,22 @@
+by TheBadGod (discord)
+
+decrypt the initial wifi traffic with the given password (p4ssw0rd1), to get the group handshake (with the bufferoverflow)
+notice the end looks awfully a lot like addresses in the rom (which is based at 0), which is this ropchain:
+0x5312d         -> POP {R0,R1,R3,R4,PC}
+0x0
+0xfffffe5d                                          (Stored in R1)
+0x0
+0x2ce33         -> ADD R0,R1; POP {R4,R5,PC}        (Stored in R4 => R0 contains SP relative address and R1 contains a negative number)
+0x16459         -> ADD R0, SP, #0xD0+var_68; BLX R4 (R0 = SP, goto R4)
+0x0
+0x0
+0x10bb9         -> BXNS R0
+
+
+which just jumps back to the beginning of the payload and executes that as shellcode, the shellcode xors the rest of the payload with the bytes taken from address 0x500 (so just offset 0x500 in the ROM.bin), this gives you the new config:
+
+b'\x00ConfNet-\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00PineNet9101\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00_5a8P96EA53P1WVQzlV0WNKVHqAh3XHRWV0aQ43BlnQ\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0009bb63bf7635f9cfd50f022e7a3b0dba\x00\x04\xb0\xcf\x12n\xa7\x06\x01\xe2!%\xbc\xde#Y\xef\x1f\xe7TM\xcbr\xd9x\n \xf1\xebi\x05\xab\xfb\xef_2\x1d\xe9\xab-\x8cT\x02\xcc\xc5\xb7\x83UV\xa2\xec\xb6=!\xb6\x0c\xb4-\xe9\xf0\x12yO\xee\xac\x00\x94\xe1\x8a\x81\xf2\xffht\x9a\x1ax\x00*\x00\xf05\x81\xdfA\x9f\xc3\xa6'
+
+in there we have the new AP password of _5a8P96EA53P1WVQzlV0WNKVHqAh3XHRWV0aQ43BlnQ, with which you can decode the rest of the wifi traffic and find the flag in one of the http requests 
+there was a bit more reversing involved than i show here, but that's about what you would've needed to solve it
+
