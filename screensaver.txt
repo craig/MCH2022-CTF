@@ -1,0 +1,56 @@
+Screensaver 
+
+by craig
+
+```Disk image: DOS/MBR boot sector, code offset 0x3c+2, OEM-ID "mkdosfs", sectors/cluster 8, reserved sectors 8, root entries 512, Media descriptor 0xf8, sectors/FAT 192, sectors/track 32, heads 64, sectors 389120 (volumes > 32 MB), serial number 0xe8d6aa9d, label: "flagpc     ", FAT (16 bit)```
+
+mount -o loop disk_image /mnt/image
+
+```
+
+root@x1:/mnt/usb# grep -ir "ScreenSave_Data" *
+WINDOWS/DESKTOP/old_screensaver_password.reg:"ScreenSave_Data"=hex:37,39,44,43,34,35,32,39,35,32,35,46,39,36,32,33,34,33,42,\
+grep: WINDOWS/SYSTEM/PASSWORD.CPL: binary file matches
+grep: WINDOWS/USER.DA0: binary file matches
+grep: WINDOWS/USER.DAT: binary file matches
+```
+
+Read http://www.dankalia.com/tutor/01001/0100101070.htm -> Password is XOR'ed
+
+```
+USER.DAT has the current screensaver PW:
+
+0000fc80: 0000 0000 0f00 2100 5363 7265 656e 5361  ......!.ScreenSa
+0000fc90: 7665 5f44 6174 6130 4541 3233 3735 4131  ve_Data0EA2375A1
+0000fca0: 4332 3445 3532 4535 3244 4630 3441 4230  C24E52E52DF04AB0
+0000fcb0: 3243 3742 4532 3200 0100 0000 0000 0000  2C7BE22.........
+
+0EA2375A1C24E52E52DF04AB02C7BE22
+
+USER.DA0 has the old password, which was 1234567890ABCDEF
+
+0000fcb0: 0029 0053 6372 6565 6e53 6176 655f 4461  .).ScreenSave_Da
+0000fcc0: 7461 3739 4443 3435 3239 3532 3546 3936  ta79DC4529525F96
+0000fcd0: 3233 3433 4243 3036 4241 3137 4431 4432  2343BC06BA17D1D2
+0000fce0: 3139 0000 0000 0000 0000 00cf 7fc9 67d6  19............g.
+
+79DC4529525F962343BC06BA17D1D219
+```
+
+XOR'ing it:
+```
+>>> import binascii
+>>> import hashlib
+>>> xor=lambda a,b:b"".join(bytes([i^j]) for i,j in zip(a,b))
+>>> new_encrypted = binascii.unhexlify(b"0EA2375A1C24E52E52DF04AB02C7BE22")
+>>> old_known = b"1234567890ABCDEF"
+>>> old_encrypted = binascii.unhexlify(b"79DC4529525F962343BC06BA17D1D219")
+>>> print(xor(xor(old_encrypted, old_known), new_encrypted))
+b'FLAG{MD5(SCSVR)}'
+>>>print(hashlib.md5("SCSVR".encode('utf-8')).hexdigest())
+3f3711e99805e6598288cdeb60b21894
+
+```
+
+flag{3f3711e99805e6598288cdeb60b21894}
+
