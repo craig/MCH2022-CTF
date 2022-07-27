@@ -1,0 +1,7 @@
+by craig
+
+The wifi in the CTF village broadcasts AP names.
+CTF-96f}
+CTF-fla
+Wait some time, do scans with iwlist and always add the newest SSID at the end.
+
