@@ -1,0 +1,40 @@
+by Vozec via discord
+
+for HipsterProgramming
+
+Code:
+from pwn import *
+from binascii import unhexlify
+import codecs
+
+context.log_level = 'critical'
+
+def Get_SwiftKey():
+    return bytes([0x36,0x30,0x65,0x36,0x61,0x33,0x32,0x30])[::-1].decode()+ bytes([0x66,0x33,0x64]).decode() # 023a6e06f3d
+
+def Get_RustKey():
+    return codecs.encode(unhexlify(b'0x326F33'[2:]+b'0x716F337336307236'[2:]).decode()[::-1], "rot_13") # 6e06f3bd3b2
+
+def Get_GoKey():
+    return 'e4'+'64e54b09'
+
+swift = Get_SwiftKey() 
+rust  = Get_RustKey()
+go    = Get_GoKey()
+
+print('./hipsterprogramming_original %s %s %s'%(swift,rust,go))
+proc = process(['./hipsterprogramming_original',swift,rust,go])
+print(proc.recvall(timeout=0.3).decode())
+
+
+Result: 
+root@DESKTOP-HNQJECB: /c
+➜   python3 Hipster\ Programming.py
+./hipsterprogramming_original 023a6e06f3d 6e06f3bd3b2 e464e54b09
+Welcome to HipsterProgramming, where we only use the hippest of programming languages!
+Supply us with 3 valid keys and get a free avocado quinoa salad with your almond milk frappuccino!
+Swift key:    :white_check_mark:
+Rust key:    :white_check_mark:
+Go key:        :white_check_mark:
+Congrats! Here is your free coupon: flag{023a6e06f3d6e06f3bd3b2e464e54b09}.
+

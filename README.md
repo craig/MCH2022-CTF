@@ -11,6 +11,10 @@ Sharing is Caring: https://imp.ress.me/blog/2022-07-26/mch-2022-crypto/#sharing-
 
 ## Pwnable
 
+HipsterProgramming: https://github.com/craig/MCH2022-CTF/blob/main/HipsterProgramming.txt 
+
+rockpaperlizardspock: https://github.com/craig/MCH2022-CTF/blob/main/rockpaperlizardspock.txt
+
 ## Forensics
 
 Screensaver: https://github.com/craig/MCH2022-CTF/blob/main/screensaver.txt

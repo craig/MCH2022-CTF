@@ -1,0 +1,5 @@
+by Vozec via discord
+
+or RockPaperScissorsLizardSpock
+- Patch the seed in asm by 0 (srand(0)) to always have the same list : R R P R P P P R R P R S R S P
+- Patch last conditions (jnz -> jz) at the end of the binary , just before the flag printing
