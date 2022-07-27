@@ -23,6 +23,8 @@ HipsterProgramming: https://github.com/craig/MCH2022-CTF/blob/main/HipsterProgra
 
 rockpaperlizardspock: https://github.com/craig/MCH2022-CTF/blob/main/rockpaperlizardspock.txt
 
+Weird signal: https://twitter.com/__spq__/status/1552386564759687175 (not a complete writeup)
+
 ## Forensics
 
 Screensaver: https://github.com/craig/MCH2022-CTF/blob/main/screensaver.txt
