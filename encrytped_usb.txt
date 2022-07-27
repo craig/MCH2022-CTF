@@ -1,0 +1,41 @@
+Encrypted USB drive - by craig
+
+Disk encrypted_usb.dd: 76 MiB, 79675392 bytes, 155616 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x78787878
+
+Device            Boot      Start        End    Sectors   Size Id Type
+encrypted_usb.dd1      2021161080 4042322159 2021161080 963.8G 78 unknown
+encrypted_usb.dd2      2021161080 4042322159 2021161080 963.8G 78 unknown
+encrypted_usb.dd3      4294932600 8589899894 4294967295     2T 78 unknown
+encrypted_usb.dd4      4294967295 5035196669  740229375   353G ff BBT
+
+$ file encrypted_usb.dd 
+encrypted_usb.dd: DOS/MBR boot sector, code offset 0x58+2, OEM-ID "-FVE-FS-", reserved sectors 0, Media descriptor 0xf8, sectors/track 63, heads 255, hidden sectors 32, FAT (32 bit), sectors/FAT 8160, serial number 0x0, unlabeled; NTFS, sectors/track 63, physical drive 0x1fe0, $MFT start cluster 393217, serial number 02020454d414e204f, checksum 0x41462020
+Use https://github.com/Aorimn/dislocker/releases/tag/v0.7.3
+The regular debian 11 version is broken.
+
+mkdir /mnt/bit
+mkdir /mnt/bitlockerclear 
+cat recovery_keys_dump.txt | while read line
+do
+	echo $line
+	/home/hacker/dislocker-0.7.3/src/dislocker-fuse /dev/sdb -p$line -- /mnt/bit
+done
+mount -o loop /mnt/bit/dislocker-file /mnt/bitlockerclear
+Content:
+
+root@x250:/mnt/bitlockerclear# ls -l
+total 1009
+-rwxrwxrwx 1 root root 200036 Jul  8 03:55 christmas_bonus_idea.png.xxx.crypt
+-rwxrwxrwx 1 root root  27747 Jul  8 03:55 confidential_document.png.xxx.crypt
+-rwxrwxrwx 1 root root  14360 Jul  8 03:55 cryptor
+-rwxrwxrwx 1 root root  13324 Jul  8 03:55 do_not_open.png.xxx.crypt
+-rwxrwxrwx 1 root root 212428 Jul  8 03:55 hr_warning.png.xxx.crypt
+-rwxrwxrwx 1 root root 562272 Jul  8 03:55 important_work_document.png.xxx.crypt
+-rwxrwxrwx 1 root root    386 Jul  8 03:55 ransom.txt
+
+XOR with PNG header to retreive the key ysta. Then XOR with the key to retreive the PNGs. One of them contains the flag inside the image.
