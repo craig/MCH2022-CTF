@@ -1,0 +1,6 @@
+by craig
+
+Go to the CTF tent, use a cellphone with an NFC reader to read the flag from the blue tag.
+
+Warning: this did not work on iphones. :)
+

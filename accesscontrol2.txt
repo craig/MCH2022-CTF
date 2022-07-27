@@ -1,0 +1,8 @@
+By craig
+
+Go to the CTF tent, use a cellphone with an NFC reader to read the data from the access badge. The flag is not in the data as before, the payload says: “no flag here, read secor 6”
+It’s a NXP Mifare Classic.
+The badge: https://imgur.com/a/T8X4D2y
+Use a mifare classic reader tool, e.g. https://play.google.com/store/apps/details?id=de.syss.MifareClassicTool
+Read Sector 6, it says: “Good, now read sector 10 with key 4d4348002202” - add the key to your keystore, read sector 10 and get the flag:
+“Nice! flag{28fe8651a5db73664d876f20759c1719}”
