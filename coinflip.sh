@@ -8,6 +8,8 @@
 # if successful, disconnect all other sessions
 # if unsuccessful, flip coin in another session
 
+# (feed with cookie that had success on the first try ./script.sh “sid=...”)
+
 pipe()
 {
 
