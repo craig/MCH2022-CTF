@@ -2,6 +2,8 @@
 
 Final Scoreboard https://github.com/craig/MCH2022-CTF/blob/main/scoreboard.png
 
+Some writeups: https://watchdog.notion.site/MCH-CTF-May-Contain-Hackers-2b36d2a891ed441abadd75b9d2ef3ec9
+
 ## Crypto
 Crypto Machine: https://www.youtube.com/watch?v=BjkOwSQ3wk8
 
