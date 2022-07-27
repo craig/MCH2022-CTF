@@ -24,6 +24,8 @@ North Korean Needle: https://github.com/craig/MCH2022-CTF/blob/main/north_korean
 
 Coinflip: https://gist.github.com/betrisey/45882ce20c743c8e2fadff88899030e1
 
+Coinflip: https://github.com/craig/MCH2022-CTF/blob/main/coinflip.sh
+
 Secure Router: https://github.com/craig/MCH2022-CTF/blob/main/secure_router.txt
 
 Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
