@@ -33,3 +33,7 @@ Captcha: https://github.com/craig/MCH2022-CTF/blob/main/captcha.txt
 ## Misc
 
 Rogue Wifi: https://github.com/craig/MCH2022-CTF/blob/main/rogue_wifi.txt
+
+Access Control 1: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol1.txt
+
+Access Control 2: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol2.txt
