@@ -1,0 +1,34 @@
+From GlacierSG via discord:
+
+#!/usr/bin/python2
+
+import sys, binascii, base64, string, random
+
+
+def H_r(m):
+    return binascii.unhexlify(m)
+
+def B_r(m):
+    return base64.b64decode(m)
+
+def R_r(m):
+    t = string.maketrans(
+        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm#",
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:")
+    return string.translate(m,t)
+
+def X_r(m):
+    m = H_r(m)
+    return (''.join(chr(ord(c)^0x42) for c in m))
+
+f = [ X_r, B_r, R_r ]
+
+enc = open("MESSAGE", "rb").read().split(':')
+while True:
+    s = ''
+    for i in range(3):
+        s += (f[int(enc[i][0])](enc[i][1:]))
+    if 'flag' in s:
+        print(s)
+        break
+    enc = s.split(':')
