@@ -9,6 +9,8 @@ Squaring Off: https://imp.ress.me/blog/2022-07-26/mch-2022-crypto/#squaring-off
 
 Sharing is Caring: https://imp.ress.me/blog/2022-07-26/mch-2022-crypto/#sharing-is-caring
 
+Curvy: https://github.com/craig/MCH2022-CTF/blob/main/curvy-p.py (only part 1, brute-forcing p)
+
 ## Pwnable
 
 HipsterProgramming: https://github.com/craig/MCH2022-CTF/blob/main/HipsterProgramming.txt 
