@@ -1,5 +1,7 @@
 # MCH2022-CTF
 
+[logo]: https://github.com/craig/scoreboard.png "Final Scoreboard"
+
 ## Crypto
 Crypto Machine: https://www.youtube.com/watch?v=BjkOwSQ3wk8
 
