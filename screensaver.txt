@@ -1,23 +1,18 @@
-Screensaver 
+Screensaver solution by craig
 
-by craig
-
-```Disk image: DOS/MBR boot sector, code offset 0x3c+2, OEM-ID "mkdosfs", sectors/cluster 8, reserved sectors 8, root entries 512, Media descriptor 0xf8, sectors/FAT 192, sectors/track 32, heads 64, sectors 389120 (volumes > 32 MB), serial number 0xe8d6aa9d, label: "flagpc     ", FAT (16 bit)```
+Disk image: DOS/MBR boot sector, code offset 0x3c+2, OEM-ID "mkdosfs", sectors/cluster 8, reserved sectors 8, root entries 512, Media descriptor 0xf8, sectors/FAT 192, sectors/track 32, heads 64, sectors 389120 (volumes > 32 MB), serial number 0xe8d6aa9d, label: "flagpc     ", FAT (16 bit)```
 
 mount -o loop disk_image /mnt/image
-
-```
 
 root@x1:/mnt/usb# grep -ir "ScreenSave_Data" *
 WINDOWS/DESKTOP/old_screensaver_password.reg:"ScreenSave_Data"=hex:37,39,44,43,34,35,32,39,35,32,35,46,39,36,32,33,34,33,42,\
 grep: WINDOWS/SYSTEM/PASSWORD.CPL: binary file matches
 grep: WINDOWS/USER.DA0: binary file matches
 grep: WINDOWS/USER.DAT: binary file matches
-```
+
 
 Read http://www.dankalia.com/tutor/01001/0100101070.htm -> Password is XOR'ed
 
-```
 USER.DAT has the current screensaver PW:
 
 0000fc80: 0000 0000 0f00 2100 5363 7265 656e 5361  ......!.ScreenSa
@@ -35,10 +30,10 @@ USER.DA0 has the old password, which was 1234567890ABCDEF
 0000fce0: 3139 0000 0000 0000 0000 00cf 7fc9 67d6  19............g.
 
 79DC4529525F962343BC06BA17D1D219
-```
+
 
 XOR'ing it:
-```
+
 >>> import binascii
 >>> import hashlib
 >>> xor=lambda a,b:b"".join(bytes([i^j]) for i,j in zip(a,b))
@@ -50,7 +45,6 @@ b'FLAG{MD5(SCSVR)}'
 >>>print(hashlib.md5("SCSVR".encode('utf-8')).hexdigest())
 3f3711e99805e6598288cdeb60b21894
 
-```
 
 flag{3f3711e99805e6598288cdeb60b21894}
 
