@@ -29,6 +29,8 @@ pwn me if you can (badge challenge): https://twitter.com/__spq__/status/15523865
 
 pwn me if you can (badge challenge): https://github.com/wallabythree/mch2022-hack-me-if-you-can (full writeup)
 
+PUPA: https://github.com/craig/MCH2022-CTF/blob/main/pupa
+
 ## Forensics
 
 Screensaver: https://github.com/craig/MCH2022-CTF/blob/main/screensaver.txt
