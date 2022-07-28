@@ -1,0 +1,83 @@
+The file received is a DOS boot sector. I loaded it into Ghidra, selected 16-bit
+real mode and after adding some labels and comments I arrive at the result below:
+
+       0000:0000 b8 c0 07        MOV        AX,0x7c0
+       0000:0003 8e d8           MOV        DS,AX
+       0000:0005 8e c0           MOV        ES,AX
+       0000:0007 b0 02           MOV        AL,0x2
+       0000:0009 b4 00           MOV        AH,0x0                                           set video mode al
+       0000:000b cd 10           INT        0x10
+       0000:000d be 6e 00        MOV        SI,0x6e
+       0000:0010 b4 0e           MOV        AH,0xe
+                             print_prompt                                    XREF[1]:     0000:0019(j)  
+       0000:0012 ac              LODSB      SI=>DAT_0000_7c6e
+       0000:0013 3c 00           CMP        AL,0x0
+       0000:0015 74 04           JZ         prompt_done
+       0000:0017 cd 10           INT        0x10                                             teletype output
+       0000:0019 eb f7           JMP        print_prompt
+                             prompt_done                                     XREF[1]:     0000:0015(j)  
+       0000:001b b2 0f           MOV        DL,0xf
+       0000:001d b3 07           MOV        BL,0x7
+       0000:001f be 00 00        MOV        SI,0x0
+       0000:0022 bf a4 00        MOV        DI,0xa4
+                             read_password                                   XREF[1]:     0000:003e(j)  
+       0000:0025 b4 02           MOV        AH,0x2
+       0000:0027 80 c2 01        ADD        DL,0x1
+       0000:002a cd 10           INT        0x10                                             set cursor position
+       0000:002c b4 00           MOV        AH,0x0
+       0000:002e cd 16           INT        0x16
+       0000:0030 aa              STOSB      ES:DI=>DAT_0000_7ca4
+       0000:0031 b4 09           MOV        AH,0x9
+       0000:0033 b9 01 00        MOV        CX,0x1
+       0000:0036 cd 10           INT        0x10                                             write character
+       0000:0038 46              INC        SI
+       0000:0039 83 fe 26        CMP        SI,38
+       0000:003c 74 02           JZ         password_done
+       0000:003e eb e5           JMP        read_password
+                             password_done                                   XREF[1]:     0000:003c(j)  
+       0000:0040 be a4 00        MOV        SI,0xa4                                          points to input
+       0000:0043 b4 41           MOV        AH,0x41
+       0000:0045 bb 7e 00        MOV        BX,0x7e
+       0000:0048 b1 00           MOV        CL,0x0
+                             verify                                          XREF[1]:     0000:005b(j)  
+       0000:004a ac              LODSB      SI=>DAT_0000_7ca4
+       0000:004b 30 c4           XOR        AH,AL
+       0000:004d 3a 27           CMP        AH,byte ptr [BX]=>DAT_0000_7c7e
+       0000:004f 75 0c           JNZ        failed
+       0000:0051 fe c1           INC        CL
+       0000:0053 83 c3 01        ADD        BX,0x1
+       0000:0056 80 f9 26        CMP        CL,0x26
+       0000:0059 74 0a           JZ         verified
+       0000:005b eb ed           JMP        verify
+                             failed                                          XREF[1]:     0000:004f(j)  
+       0000:005d b4 0b           MOV        AH,0xb
+       0000:005f b3 14           MOV        BL,0x14
+       0000:0061 cd 10           INT        0x10                                             set background color
+       0000:0063 eb 08           JMP        boom
+                             verified                                        XREF[1]:     0000:0059(j)  
+       0000:0065 b4 0b           MOV        AH,0xb
+       0000:0067 b3 0a           MOV        BL,0xa
+       0000:0069 cd 10           INT        0x10                                             set background color
+       0000:006b eb 00           JMP        boom
+                             boom                                            XREF[2]:     0000:0063(j), 0000:006b(j)  
+       0000:006d c3              RET
+       0000:006e 45 6e 74        ds         "Enter password:"
+                 65 72 20 
+                 70 61 73 
+       0000:007e 27 4b 2a        ??[38]
+                 4d 36 52 
+                 63 07 3e 
+
+
+Interrupt 0x10 invokes the PC-BIOS, the function invoked is selected using the ah register.
+The code prompts with "Enter password: ", let's the user enter a password and verifies it against a xorred password at offset 0x7e.
+The initial character is xorred with 0x41, subsequent characters are xorred with the previous result.
+
+I used the following python to print the flag:
+
+    k=b'\x27\x4b\x2a\x4d\x36\x52\x63\x07\x3e\x06\x31\x53\x35\x0d\x3b\x03\x66\x50\x62\x53\x35\x01\x39\x00\x65\x00\x64\x52\x61\x02\x3b\x03\x36\x55\x6d\x5a\x3c\x41'
+    last_byte=0x41
+    for b in k:
+        print(chr(last_byte ^ b), end='')
+        last_byte = b
+    print()
