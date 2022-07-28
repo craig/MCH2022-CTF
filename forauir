@@ -1,0 +1,78 @@
+After examining the binary in Ghidra I noticed several things of interest:
+
+1. There's a call to ptrace(PTRACE_TRACEME,...). This is likely anti-debugging - the call will fail if the process is being debugged.
+2. If the call to ptrace() fails srand() is invoked with different parameters than it would be without
+3. The time spent after entering the password and before printing is measured using two time() calls
+4. User input is compared against a xorred string, incrementing a counter for each match
+
+So plan of attack is to circumvent initial anti-debugging (1) by clearing eax after ptrace() and simply dumping the correct password by breaking on the cmp instruction in the verify loop (4).
+
+(1, 2)
+        00011382 6a 00           PUSH       0x0
+        00011384 6a 01           PUSH       0x1
+        00011386 6a 00           PUSH       0x0
+        00011388 6a 00           PUSH       0x0
+        0001138a e8 b1 fd        CALL       ptrace                                           int ptrace(int request, pid_t pi
+                 ff ff
+        0001138f 83 c4 10        ADD        ESP,0x10
+        00011392 83 f8 ff        CMP        iVar2,-0x1
+        00011395 75 1d           JNZ        real_srand
+
+
+(3)
+
+        00011452 8d 45 a0        LEA        iVar2=>start_time,[EBP + -0x60]
+        00011455 50              PUSH       iVar2
+        00011456 e8 65 fc        CALL       time                                             time_t time(time_t * tloc)
+                 ff ff
+
+        000114de 8d 45 a4        LEA        iVar2=>end_time,[EBP + -0x5c]
+        000114e1 50              PUSH       iVar2
+        000114e2 e8 d9 fb        CALL       time                                             time_t time(time_t * tloc)
+                 ff ff
+
+        00011527 8b 55 a4        MOV        EDX,dword ptr [EBP + end_time]
+        0001152a 8b 45 a0        MOV        iVar2,dword ptr [EBP + start_time]
+        0001152d 29 c2           SUB        EDX,iVar2
+        0001152f 89 d0           MOV        iVar2,EDX
+        00011531 85 c0           TEST       iVar2,iVar2
+        00011533 7f 3d           JG         nope
+
+Bypassing PTRACE_TRACEME check:
+
+    (gdb) break *0x5655d38f
+    Breakpoint 2 at 0x5655d38f
+    (gdb) cont
+    Continuing.
+
+    Breakpoint 2, 0x5655d38f in main ()
+    (gdb) info registers eax
+    eax            0xffffffff          -1
+    (gdb) set $eax=0
+    (gdb) cont
+    Continuing.
+    Please enter your password: geheim
+
+Dumping password
+
+    Breakpoint 6, 0x565564b9 in main ()
+    (gdb) print /c $eax
+    $1 = 86 'V'
+    (gdb) cont
+    Continuing.
+
+    Breakpoint 6, 0x565564b9 in main ()
+    (gdb) print /c $eax
+    $2 = 105 'i'
+    (gdb) cont
+    Continuing.
+
+    ..etc
+
+
+Getting flag
+
+    root@279f2eced8d1:/# ./forauir
+    Please enter your password: VictoryForTheFirstborn!
+    Congratulations!
+    You earned yourself a flag: flag{1e4ff6c95f2ab2839156a8bed3d7d753}
