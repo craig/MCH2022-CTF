@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # craig for MCH2022 CTF
 # first part only, we do a binary search for P
+# second part: calculate a + b (https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/parameter_recovery.py ??)
+# third part, smart attack (https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py)
+
 import argparse
 import socket
 import time
