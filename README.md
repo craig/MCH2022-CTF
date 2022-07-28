@@ -17,6 +17,8 @@ Smartblockchain: https://flag-poisoning.fr/writeup/smartblockchain-mch-2022/
 
 Curvy: https://github.com/craig/MCH2022-CTF/blob/main/curvy-p.py (incomplete; only part 1, binary search for p)
 
+Curvy: https://duksctf.github.io/2022/07/25/MCH22-curvy.html
+
 Crypto machine 02: https://github.com/craig/MCH2022-CTF/blob/main/crypto_machine_02.txt
 
 ## Pwnable
