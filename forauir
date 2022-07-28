@@ -76,3 +76,6 @@ Getting flag
     Please enter your password: VictoryForTheFirstborn!
     Congratulations!
     You earned yourself a flag: flag{1e4ff6c95f2ab2839156a8bed3d7d753}
+
+Note from craig:
+The tar was called "foraiur" which is a StarCraft reference (Aiur is the Protoss race homeworld); the password is one of the things Protoss units say when they're being selected (https://wiki.rankiing.net/what-is-the-strongest-race-in-starcraft/).
