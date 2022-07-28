@@ -39,6 +39,8 @@ North Korean Needle: https://github.com/craig/MCH2022-CTF/blob/main/north_korean
 
 Extensions: https://www.youtube.com/watch?v=kHwdguVWJJE
 
+foraiur: https://github.com/craig/MCH2022-CTF/blob/main/forauir
+
 ## Web
 
 Coinflip: https://gist.github.com/betrisey/45882ce20c743c8e2fadff88899030e1
