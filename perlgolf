@@ -1,0 +1,40 @@
+    PREHISTORIC EXTRACTION AND REPORTING LANGUAGE
+
+The flag is constructed using the perl one-liner below:
+
+echo $FLAG | perl -ple 'y/a-z0-9/0-9a-z/;s,.,$&^"\x31",eg;s/./sprintf("%02d",ord($&))/eg;$/=reverse;tr/0-9/5812907643/'
+5942585669617662686874626877526268765151507474557752525959517477585160606567
+
+Using flag -e means the script will be specified as an argument, -p wraps the script in loop reading stdin and printing to stdout. I think -l enables line buffered mode, didn't check.
+
+Breaking down the script into pieces:
+
+y/a-z0-9/0-9a-z/
+
+    y is a synonym for tr. It does character translation
+
+s,.,$&^"\x31",eg
+
+    The 'e' flag to regex means interpret substitution as expression, the 'g' applies it all matches and not just the first one. The expression xors the match with 0x31.
+    Effectively this just xors the string with 0x31. In Perl you're not limited to / to separate the regex pieces, here a comma is used to confuse the reader.
+
+s/./sprintf("%02d",ord($&))/eg
+
+    Again an expression substitution, this time printing each character as a decimal number zero-padded to fill two characters.
+
+$/=reverse
+
+    Doesn't do anything, I didn't understand the code but found out through trying.
+
+tr/0-9/5812907643/
+
+    Another character translation.
+
+So we reverse the order of the pieces and invert each piece.
+For the character translations you just swap around first and second argument. Xor works both ways.
+The decimal character encoding is undone by matching two characters and replacing them with chr(match).
+
+Ending up with:
+
+    echo 5942585669617662686874626877526268765151507474557752525959517477585160606567 | perl -ple 'tr/5812907643/0-9/;s/../chr($&)/eg;s,.,$&^"\x31",eg;y/0-9a-z/a-z0-9/'
+    flag{817554752c751dde44b2ccffd42ad996}
