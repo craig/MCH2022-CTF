@@ -63,6 +63,8 @@ For starters: https://www.youtube.com/shorts/58NhToPKro8
 
 ## Misc
 
+Perlgolf: https://github.com/craig/MCH2022-CTF/blob/main/perlgolf
+
 Rogue Wifi: https://github.com/craig/MCH2022-CTF/blob/main/rogue_wifi.txt
 
 Access Control 1: https://github.com/craig/MCH2022-CTF/blob/main/accesscontrol1.txt
