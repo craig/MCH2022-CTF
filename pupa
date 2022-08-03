@@ -1,3 +1,5 @@
+Thanks to Michael Schrijver for the writeup!
+
 The file received is a DOS boot sector. I loaded it into Ghidra, selected 16-bit
 real mode and after adding some labels and comments I arrive at the result below:
 
