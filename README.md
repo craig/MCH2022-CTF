@@ -2,7 +2,9 @@
 
 Final Scoreboard https://github.com/craig/MCH2022-CTF/blob/main/scoreboard.png
 
-Some writeups: https://watchdog.notion.site/MCH-CTF-May-Contain-Hackers-2b36d2a891ed441abadd75b9d2ef3ec9
+Writeup collection: https://watchdog.notion.site/MCH-CTF-May-Contain-Hackers-2b36d2a891ed441abadd75b9d2ef3ec9
+
+While several of these writeups are done by me, please check the individual files for credit. :)
 
 ## Crypto
 Crypto Machine: https://www.youtube.com/watch?v=BjkOwSQ3wk8
@@ -15,7 +17,7 @@ Sharing is Caring: https://imp.ress.me/blog/2022-07-26/mch-2022-crypto/#sharing-
 
 Smartblockchain: https://flag-poisoning.fr/writeup/smartblockchain-mch-2022/
 
-Curvy: https://github.com/craig/MCH2022-CTF/blob/main/curvy-p.py (incomplete; only part 1, binary search for p)
+Curvy: https://github.com/craig/MCH2022-CTF/blob/main/curvy-p.py (incomplete; only part 1, binary search for p implemented by craig, failed to determine a and b unfortunately)
 
 Curvy: https://duksctf.github.io/2022/07/25/MCH22-curvy.html
 
