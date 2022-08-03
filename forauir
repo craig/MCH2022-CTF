@@ -1,3 +1,5 @@
+Thanks to michaelschrijver for the following writeup!
+
 After examining the binary in Ghidra I noticed several things of interest:
 
 1. There's a call to ptrace(PTRACE_TRACEME,...). This is likely anti-debugging - the call will fail if the process is being debugged.
